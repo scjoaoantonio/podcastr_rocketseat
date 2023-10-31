@@ -1,37 +1,32 @@
-.playerContainer{
-    width: 26.5rem;
+.playerContainer {
     height: 100vh;
-
-    padding: 3rem 4rem;
-
+    max-width: 26.5rem;
+    padding: 1rem; /* Reduza o preenchimento */
     background-color: var(--purple-500);
     color: var(--white);
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-
-    header{
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+  
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
-
-    strong{
-        font-family: Lexend, sans-serif;
-        font-weight: 600;
+  
+    strong {
+      font-family: Lexend, sans-serif;
+      font-weight: 600;
     }
-
-    footer{
-
-        align-self: stretch;
-
-        &.empty{
-            opacity: 0.5;
-        }
+  
+    footer {
+      align-self: stretch;
+      &.empty {
+        opacity: 0.5;
+      }
     }
-}
+  }
 
 .emptyPlayer{
     width: 100%;
