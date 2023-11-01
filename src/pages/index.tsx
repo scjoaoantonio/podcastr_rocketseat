@@ -1,17 +1,18 @@
+import { useContext } from 'react';
 import { GetServerSideProps } from "next"
 
+import Head from "next/head"
 import Image from 'next/image'
 import Link from 'next/link'
 
+import ptBR from "date-fns/locale/pt-BR"
+import { format, parseISO } from "date-fns"
+
+import { convertDurationToTimeString } from "../utils/convertDurationToTimeString"
+import { PlayerContext } from "../contexts/PlayerContexts";
 
 import { api } from "../services/api"
-
-import { format, parseISO } from "date-fns"
-import ptBR from "date-fns/locale/pt-BR"
-import { convertDurationToTimeString } from "../utils/convertDurationToTimeString"
-
 import styles from './home.module.scss';
-import Head from "next/head"
 
 type Episode = {
   id: string;
@@ -30,7 +31,8 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-
+  const {play} = useContext(PlayerContext)
+  
   return (
     <div className={styles.homepage}>
       <Head>
@@ -57,7 +59,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button>
+              <button onClick={() => play(episode)}>
                 <img src="/play-green.svg" alt="Tocar episódio"/>
               </button>
             </li>

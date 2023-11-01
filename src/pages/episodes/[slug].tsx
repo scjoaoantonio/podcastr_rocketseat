@@ -1,6 +1,6 @@
 import { ptBR } from "date-fns/locale";
 import { api } from "../../services/api"
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from "next"
 import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
 
@@ -30,11 +30,11 @@ type EpisodeProps = {
 }
 
 export default function Episode({ episode }: EpisodeProps ) {
-  const router = useRouter()
+  // const router = useRouter()
 
-  if (router.isFallback) {
-    return <p>Carregando...</p>
-  }
+  // if (router.isFallback) {
+  //   return <p>Carregando...</p>
+  // }
 
   return (
     <div className={styles.episode}>
