@@ -1,17 +1,15 @@
+import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { api } from "../../services/api"
-// import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from "next"
-import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
-
 import Image from "next/image";
 import Link from "next/link";
-import Head from "next/head";
-
-import format from "date-fns/format";
-import parseISO from "date-fns/parseISO";
-
+import { api } from "../../services/api"
+import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
 import styles from './episode.module.scss'
+
+import { useRouter } from 'next/router'
+import { usePlayer } from "../../contexts/PlayerContexts";
+import Head from "next/head";
 
 type Episode = {
   id: string;
@@ -30,11 +28,12 @@ type EpisodeProps = {
 }
 
 export default function Episode({ episode }: EpisodeProps ) {
-  // const router = useRouter()
+  const { play } = usePlayer()
+  const router = useRouter()
 
-  // if (router.isFallback) {
-  //   return <p>Carregando...</p>
-  // }
+  if (router.isFallback) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <div className={styles.episode}>
@@ -49,13 +48,13 @@ export default function Episode({ episode }: EpisodeProps ) {
           </button>
         </Link>
         <Image
+          alt=""
           width={700}
           height={160}
           src={episode.thumbnail}
-          alt="thumb"
-        //   layout="fixed"
+          objectFit="cover"
         />
-        <button>
+        <button onClick={() => play(episode)}>
           <img src="/play.svg" alt="Tocar episódio"/>
         </button>
       </div>
@@ -70,7 +69,8 @@ export default function Episode({ episode }: EpisodeProps ) {
       <div
         className={styles.description}
         dangerouslySetInnerHTML={{
-          __html: episode.description
+          __html:
+          episode.description
         }} 
       />
     </div>
